@@ -5,7 +5,7 @@ import haversine as hs
 import warnings
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 tableURL = 'http://router.project-osrm.org/table/v1/driving/'
@@ -457,9 +457,9 @@ def odMatrix(nodeList, get='distance', sources=None, distUnit='m', timeUnit='sec
         else:
             raise ValueError(f"get '{get}' not understood.")
         
-def distSeq(nodeList=None, matrix=None, sources=None, distUnit='m'):
+def distSeq(nodeList=None, matrix=None, sources=None, distUnit='m', timeout=5):
     if matrix is None:
-        matrix = odMatrix(nodeList, get='distance', sources=sources, distUnit=distUnit, timeUnit='second')
+        matrix = odMatrix(nodeList, get='distance', sources=sources, distUnit=distUnit, timeUnit='second', timeout=timeout)
     elif nodeList is None:
         matrix = matrix
     seq = []
@@ -475,9 +475,9 @@ def distSeq(nodeList=None, matrix=None, sources=None, distUnit='m'):
     except:
         return matrix
 
-def travTimeSeq(nodeList=None, matrix=None, sources=None, timeUnit='second'):
+def travTimeSeq(nodeList=None, matrix=None, sources=None, timeUnit='second', timeout=5):
     if matrix is None:
-        matrix = odMatrix(nodeList, get='duration', sources=sources, distUnit='m', timeUnit=timeUnit)
+        matrix = odMatrix(nodeList, get='duration', sources=sources, distUnit='m', timeUnit=timeUnit, timeout=timeout)
     elif nodeList is None:
         matrix = matrix
     seq = []
